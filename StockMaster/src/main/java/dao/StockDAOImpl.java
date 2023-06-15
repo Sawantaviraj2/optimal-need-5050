@@ -19,7 +19,8 @@ public class StockDAOImpl implements StockDAO {
 		EntityTransaction et = null;
 		try {
 			em = EMUtils.getEntityManager();
-			// check if company with same name exists
+//			System.out.println(em);
+			// check if stock with same name exists
 			Query query = em.createQuery("SELECT count(s) FROM Stock s WHERE stockName = :stockName");
 			query.setParameter("stockName", stock.getStockName());
 			if ((Long) query.getSingleResult() > 0) {

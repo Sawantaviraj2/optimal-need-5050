@@ -78,6 +78,14 @@ public class MainUI {
 			case 2:
 				CustomerUI.userLogin(sc);
 				break;
+			case 3:
+				CustomerUI.userRegistration(sc);
+				break;
+			case 0:
+				System.out.println("Thanks for using the services");
+				break;
+			default:
+				System.out.println("Invalid Selection, try again");
 			}
 		} while (choice != 0);
 	}

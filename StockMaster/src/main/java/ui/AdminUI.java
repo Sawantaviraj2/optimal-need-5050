@@ -1,8 +1,11 @@
 package ui;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
+import entity.Customer;
 import entity.Stock;
 import exception.NoRecordFoundException;
 import exception.SomeThingWentWrongException;
@@ -24,12 +27,8 @@ public class AdminUI {
 		System.out.print("Enter sector type (Government/private) ");
 		String stocksectorType = sc.next();
 
-		// code to create Company Entity object
-		Stock stock = new Stock();
-		stock.setStockName(stockName);
-		stock.setStockestdYear(stockestdYear);
-		stock.setStocksectorType(stocksectorType);
-		stock.setStockPrice(stockPrice);
+		// code to create Stock Entity object
+		Stock stock = new Stock(stockName, stockestdYear, stockPrice, stocksectorType, new HashSet<>());
 
 //		 Create an object of Service Layer here	
 		stockService stockService = new stockServiceImpl();

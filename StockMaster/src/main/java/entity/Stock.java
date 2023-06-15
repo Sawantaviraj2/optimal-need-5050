@@ -32,7 +32,7 @@ public class Stock {
 	@Column(name = "stocksector_type", nullable = false, length = 10)
 	private String stocksectorType;
 
-	@ManyToMany(mappedBy = "stock")
+	@ManyToMany(mappedBy = "orderStockSet")
 	private Set<Customer> customer;
 
 	public Stock() {

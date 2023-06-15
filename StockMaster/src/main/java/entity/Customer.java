@@ -46,14 +46,12 @@ public class Customer {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(String name, String username, String password, LocalDate dateOfBirth, int isDeleted,
-			Set<Stock> orderStockSet) {
+	public Customer(String name, String username, String password, LocalDate dateOfBirth,Set<Stock> orderStockSet) {
 		super();
 		this.name = name;
 		this.username = username;
 		this.password = password;
 		this.dateOfBirth = dateOfBirth;
-		this.isDeleted = isDeleted;
 		this.orderStockSet = orderStockSet;
 	}
 
