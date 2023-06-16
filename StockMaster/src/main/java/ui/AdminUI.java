@@ -62,6 +62,8 @@ public class AdminUI {
 		String stockName = sc.next();
 		System.out.print("Enter establishment year");
 		int stockestdYear = sc.nextInt();
+		System.out.println("Enter Price of Stock");
+		int stockPrice = sc.nextInt();
 		System.out.print("Enter sector type (Government/private) ");
 		String stocksectorType = sc.next();
 
@@ -70,6 +72,7 @@ public class AdminUI {
 		stock.setId(id);
 		stock.setStockName(stockName);
 		stock.setStockestdYear(stockestdYear);
+		stock.setStockPrice(stockPrice);
 		stock.setStocksectorType(stocksectorType);
 
 		stockService stockService = new stockServiceImpl();

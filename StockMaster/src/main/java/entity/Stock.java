@@ -26,7 +26,7 @@ public class Stock {
 	@Column(name = "stockestd_year", nullable = false)
 	int stockestdYear;
 
-	@Column(name = "stockestd_year", nullable = false)
+	@Column(name = "stock_Price", nullable = false)
 	int stockPrice;
 
 	@Column(name = "stocksector_type", nullable = false, length = 10)

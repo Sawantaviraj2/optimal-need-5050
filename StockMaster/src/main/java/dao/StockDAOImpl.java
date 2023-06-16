@@ -6,19 +6,24 @@ import entity.Stock;
 import exception.NoRecordFoundException;
 import exception.SomeThingWentWrongException;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.Query;
 import utility.EMUtils;
 
 public class StockDAOImpl implements StockDAO {
+
+	
 	@Override
 	public void addStock(Stock stock) throws SomeThingWentWrongException {
-		// TODO Auto-generated method stub
+		
 		EntityManager em = null;
 		EntityTransaction et = null;
 		try {
 			em = EMUtils.getEntityManager();
+//			em = emf.createEntityManager();
 //			System.out.println(em);
 			// check if stock with same name exists
 			Query query = em.createQuery("SELECT count(s) FROM Stock s WHERE stockName = :stockName");
@@ -93,6 +98,7 @@ public class StockDAOImpl implements StockDAO {
 			EntityTransaction et = em.getTransaction();
 			et.begin();
 			stockFromDB.setStockName(stock.getStockName());
+			stockFromDB.setStockPrice(stock.getStockPrice());
 			stockFromDB.setStockestdYear(stock.getStockestdYear());
 			stockFromDB.setStocksectorType(stock.getStocksectorType());
 			et.commit();

@@ -9,12 +9,19 @@ import entity.Stock;
 import exception.NoRecordFoundException;
 import exception.SomeThingWentWrongException;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.Query;
 import utility.EMUtils;
 
 public class CustomerDAOImpl implements CustomerDAO {
+//	static EntityManagerFactory emf;
+//
+//	static {
+//		emf = Persistence.createEntityManagerFactory("Stock_Master");
+//	}
 
 	@Override
 	public List<Object[]> getCustomerList() throws SomeThingWentWrongException, NoRecordFoundException {
@@ -85,39 +92,48 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	@Override
 	public void SellStock(int id, String stockName) throws SomeThingWentWrongException, NoRecordFoundException {
-		// TODO Auto-generated method stub
-
 		EntityManager em = null;
+		EntityTransaction et = null;
 		try {
 			em = EMUtils.getEntityManager();
+			et = em.getTransaction();
+			et.begin();
 
 			Stock stockFromDB = em.find(Stock.class, id);
 			if (stockFromDB == null) {
-				throw new NoRecordFoundException("No Stock found with the given id i" + id);
+				throw new NoRecordFoundException("No Stock found with the given id: " + id);
 			}
-			Set<Customer> cusSet = stockFromDB.getCustomer();
 
 			Customer customer = em.find(Customer.class, LoggedInUserId.loggedInUserId);
-			Set<Stock> purchedStockList = customer.getOrderStockSet();
+			Set<Stock> purchasedStockList = customer.getOrderStockSet();
 
-			if (purchedStockList.isEmpty()) {
-				throw new NoRecordFoundException("No Stock Purched By You");
+			if (purchasedStockList.isEmpty()) {
+				throw new NoRecordFoundException("No Stock Purchased By You");
 			}
 
-			purchedStockList.removeIf(s -> (s.getStockName().equals(stockName) && s.getId() == id));
-			cusSet.removeIf(c -> (c.getId() == customer.getId() && c.getName().equals(customer.getName())));
+			boolean removedStock = purchasedStockList.removeIf(s -> s.getStockName().equals(stockName) && s.getId() == id);
+			if (!removedStock) {
+				throw new NoRecordFoundException("No matching stock found in your purchased stocks");
+			}
 
-			customer.setOrderStockSet(purchedStockList);
-			stockFromDB.setCustomer(cusSet);
+			Set<Customer> customersForStock = stockFromDB.getCustomer();
+			customersForStock.removeIf(c -> c.getId() == customer.getId() && c.getName().equals(customer.getName()));
 
-			EntityTransaction et = em.getTransaction();
-			customer.setOrderStockSet(customer.getOrderStockSet());
-			stockFromDB.setCustomer(stockFromDB.getCustomer());
+			customer.setOrderStockSet(purchasedStockList);
+			stockFromDB.setCustomer(customersForStock);
+
+			em.merge(customer);
+			em.merge(stockFromDB);
 			et.commit();
 		} catch (PersistenceException ex) {
-			throw new SomeThingWentWrongException("Unable to process request, try again later");
+			if (et != null && et.isActive()) {
+				et.rollback();
+			}
+			throw new SomeThingWentWrongException("Unable to process the request, please try again later.");
 		} finally {
-			em.close();
+			if (em != null) {
+				em.close();
+			}
 		}
 	}
 
@@ -160,9 +176,9 @@ public class CustomerDAOImpl implements CustomerDAO {
 			et.begin();
 			customer.setIsDeleted(1);
 			et.commit();
-		}catch(PersistenceException ex) {
+		} catch (PersistenceException ex) {
 			throw new SomeThingWentWrongException("Unable to process request, try again later");
-		}finally{
+		} finally {
 			em.close();
 		}
 	}
@@ -170,28 +186,28 @@ public class CustomerDAOImpl implements CustomerDAO {
 	@Override
 	public void addCustomer(Customer customer) throws SomeThingWentWrongException {
 		// TODO Auto-generated method stub
-		
+
 		EntityManager em = null;
 		try {
 			em = EMUtils.getEntityManager();
-			
-			//check if customer with same username exists
+
+			// check if customer with same username exists
 			Query query = em.createQuery("SELECT count(c) FROM Customer c WHERE username = :username");
-			query.setParameter("username", customer.getUsername());  
-			if((Long)query.getSingleResult() > 0) {
-				//you are here means customer with given name exists so throw exceptions
+			query.setParameter("username", customer.getUsername());
+			if ((Long) query.getSingleResult() > 0) {
+				// you are here means customer with given name exists so throw exceptions
 				throw new SomeThingWentWrongException("The username" + customer.getUsername() + " is already occupied");
 			}
-			//you are here means no customer with given name
+			// you are here means no customer with given name
 			EntityTransaction et = em.getTransaction();
 			et.begin();
 			em.persist(customer);
 			et.commit();
-		}catch(PersistenceException ex) {
+		} catch (PersistenceException ex) {
 			throw new SomeThingWentWrongException("Unable to process request, try again later");
-		}finally{
+		} finally {
 			em.close();
 		}
-		
+
 	}
 }

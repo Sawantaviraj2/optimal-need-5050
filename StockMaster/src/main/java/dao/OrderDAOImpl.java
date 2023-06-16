@@ -7,12 +7,19 @@ import entity.LoggedInUserId;
 import entity.Stock;
 import exception.SomeThingWentWrongException;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.Query;
 import utility.EMUtils;
 
 public class OrderDAOImpl implements OrderDAO {
+//	static EntityManagerFactory emf;
+//
+//	static {
+//		emf = Persistence.createEntityManagerFactory("Stock_Master");
+//	}
 
 	@Override
 	public void purchaseStock(int stockId, String stockName) throws SomeThingWentWrongException {
