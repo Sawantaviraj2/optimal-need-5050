@@ -23,7 +23,7 @@ public class CustomerUI {
 		String username = sc.next();
 		System.out.print("Enter password ");
 		String password = sc.next();
-		System.out.print("Enter date of birth ");
+		System.out.print("Enter date of birth (YYYY-MM-DD) ");
 		LocalDate dateOfBirth = LocalDate.parse(sc.next());
 		
 		Customer customer = new Customer(name,username,password,dateOfBirth, new HashSet<>());
@@ -143,7 +143,7 @@ public class CustomerUI {
 			choice = sc.nextInt();
 			switch (choice) {
 			case 1:
-				AdminUI.viewStocks();
+				AdminUI.viewStocks(sc);
 				break;
 			case 2:
 				purchaseNewStock(sc);

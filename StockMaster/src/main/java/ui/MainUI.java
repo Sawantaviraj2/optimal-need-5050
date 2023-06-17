@@ -27,7 +27,7 @@ public class MainUI {
 				AdminUI.addStock(sc);
 				break;
 			case 2:
-				AdminUI.viewStocks();
+				AdminUI.viewStocks(sc);
 				break;
 			case 3:
 				AdminUI.updateStockDetails(sc);
@@ -67,7 +67,7 @@ public class MainUI {
 		int choice;
 		do {
 
-			System.out.println("___________________________");
+			System.out.println("_____Enter selection _____");
 			System.out.println("|1. Login As Admin        |");
 			System.out.println("|2. Login As Customer     |");
 			System.out.println("|3. Customer Registration |");
