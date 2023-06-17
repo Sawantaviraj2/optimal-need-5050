@@ -46,9 +46,11 @@ public class AdminUI {
 		stockService stockService = new stockServiceImpl();
 		try {
 			List<Stock> stockList = stockService.getStockList();
+			System.out.println("____________________________________________________________________________________________________");
 			stockList.forEach(stock -> System.out
 					.println("Id: " + stock.getId() + " stock Name:" + stock.getStockName() + " stock Estd Year:"
 							+ stock.getStockestdYear() + " stock Sector Type:" + stock.getStocksectorType()));
+			System.out.println("____________________________________________________________________________________________________");
 		} catch (SomeThingWentWrongException | NoRecordFoundException ex) {
 			System.out.println(ex.getMessage());
 		}
@@ -105,10 +107,13 @@ public class AdminUI {
 		try {
 			CustomerService customerService = new CustomerServiceImpl();
 			List<Object[]> customerList = customerService.getCustomerList();
+			System.out.println("____________________________________________________________________________________________________");
 			for (Object obj[] : customerList) {
 				System.out.println("Name: " + obj[0] + " Username: " + obj[1] + " Date of Birth: " + obj[2]
 						+ " User Active: " + (((Integer) obj[3]).intValue() == 0 ? "Yes" : "No"));
+				System.out.println("____________________________________________________________________________________________________");
 			}
+			
 		} catch (SomeThingWentWrongException | NoRecordFoundException ex) {
 			System.out.println(ex.getMessage());
 		}

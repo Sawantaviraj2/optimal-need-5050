@@ -5,12 +5,14 @@ import java.util.Scanner;
 public class MainUI {
 
 	static void displayAdminMenu() {
-		System.out.println("1. Add New Stock ");
-		System.out.println("2. View All Stock ");
-		System.out.println("3. Update Stock Details");
-		System.out.println("4. See List of all Customers");
-		System.out.println("5. Delete Stock");
-		System.out.println("0. Logout");
+		System.out.println("_______________________________");
+		System.out.println("|1. Add New Stock             |");
+		System.out.println("|2. View All Stock            |");
+		System.out.println("|3. Update Stock Details      |");
+		System.out.println("|4. See List of all Customers |");
+		System.out.println("|5. Delete Stock              |");
+		System.out.println("|0. Logout                    |");
+		System.out.println("|_____________________________|");
 	}
 
 	public static void adminMenu(Scanner sc) {
@@ -65,10 +67,12 @@ public class MainUI {
 		int choice;
 		do {
 
-			System.out.println("1. Login As Admin");
-			System.out.println("2. Login As Customer");
-			System.out.println("3. Customer Registration");
-			System.out.println("0. Exit");
+			System.out.println("___________________________");
+			System.out.println("|1. Login As Admin        |");
+			System.out.println("|2. Login As Customer     |");
+			System.out.println("|3. Customer Registration |");
+			System.out.println("|0. Exit                  |");
+			System.out.println("|_________________________|");
 			choice = sc.nextInt();
 
 			switch (choice) {

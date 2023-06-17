@@ -76,9 +76,11 @@ public class CustomerDAOImpl implements CustomerDAO {
 			if (purchedStockList.isEmpty()) {
 				throw new NoRecordFoundException("No Stock Purched By You");
 			}
+			System.out.println("____________________________________________________________________________________________________");
 			for (Stock s : purchedStockList) {
 				System.out.println("Id : " + s.getId() + " Name : " + s.getStockName() + " Price : " + s.getStockPrice()
 						+ " Year : " + s.getStockestdYear());
+				System.out.println("____________________________________________________________________________________________________");
 			}
 
 		} catch (PersistenceException | IllegalArgumentException ex) {
