@@ -1,6 +1,6 @@
 # Stock Master - Inventory Management System
 
-Stock Master is an inventory management system designed to streamline and optimize inventory control processes for businesses. It provides real-time visibility and efficient management of inventory levels, stock movements, and product information.
+        Stock Master is an inventory management system designed to streamline and optimize inventory control processes for businesses. It provides real-time visibility and efficient management of inventory levels, stock movements, and product information.
 
 
 ### Features
