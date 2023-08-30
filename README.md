@@ -41,11 +41,6 @@ The database captures information on products, warehouses, and sales orders. It 
 
 
 
-```bash
-  https://github.com/Sawantaviraj2/optimal-need-5050
-```
-
-
 ## 🚀 About Me
 I'm a JAVA Backend developer...
 
