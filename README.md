@@ -37,7 +37,6 @@ The database captures information on products, warehouses, and sales orders. It 
     - Real-time stock updates to ensure accurate inventory levels.
     - Integration with suppliers and sales channels for seamless order processing.
     - Analytics for inventory forecasting and optimization.
-### Deployment
 
 
 
